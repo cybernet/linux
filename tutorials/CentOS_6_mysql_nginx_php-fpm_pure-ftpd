@@ -1,0 +1,93 @@
+# CentOS 6 x64 tutorial
+
+
+# We start with 
+
+$ yum update
+
+
+# Then install the required repo's for this tutorial to work
+
+# epEL repo`
+
+rpm --import https://fedoraproject.org/static/0608B895.txt
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+# REMi repo`
+
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+# Change TimeZone to London
+
+ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+
+# MySQL server
+
+yum install mysql-server
+
+chkconfig --levels 235 mysqld on
+service mysqld start
+
+mysql_secure_installation
+
+cd /etc/yum.repos.d && wget -N https://raw.github.com/cybernet/sh/master/repos/nginx.repo
+
+yum install nginx -y
+
+chkconfig --levels 235 nginx on
+service nginx start
+
+
+# This will show the iP address of the server ( just in case you wonder how the welcome page looks like )
+
+# VPS
+ifconfig venet0:0 | grep inet | awk '{ print $2 }'
+
+# server
+ifconfig eth0 | grep inet | awk '{ print $2 }'
+
+# Let's install php now
+# while most of the tutorials will tell you to install php from remi, i choose not to
+# because RHEL/CentOS will provide security patches much faster then any other repo + 5.3 is much more stable than 5.4 / it's just my opinion
+# however i will provide both ways
+
+# MyWAY - php 5.3 from RHEL/CentOS
+
+yum install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml
+
+# REMi Way
+
+yum --enablerepo=remi install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml
+
+#
+
+chkconfig --levels 235 php-fpm on
+
+mkdir /etc/nginx/{sites-available,sites-enabled}
+
+cd /etc/nginx && wget -N https://raw.github.com/cybernet/sh/master/etc/nginx/centos/nginx.conf
+cd /etc/nginx && wget -N https://raw.github.com/cybernet/sh/master/etc/nginx/centos/mime.types
+
+
+mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
+ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
+
+
+# Better with sockets
+
+sed -i -e 's/127.0.0.1:9000/\/var\/run\/php-fpm\/www.socket/g' -e 's/pm.start_servers = 5/pm.start_servers = 1/g' -e 's/pm.max_spare_servers = 35/pm.max_spare_servers = 10/g' -e 's/user = apache/user = nginx/g' -e 's/group = apache/group = nginx/g' -e 's/;listen.owner = nobody/;listen.owner = nginx/g' -e 's/;listen.group = nobody/;listen.group = nginx/g' -e 's/;chdir = \/var\/www/chdir = \/var\/www/g' /etc/php-fpm.d/www.conf
+
+cd /etc/nginx/sites-enabled/
+for d in ../sites-available/*; do ln -s /etc/nginx/sites-available/${d##*/}; done
+nginx -t
+
+
+# replacing sendmail with postfix
+# postfix is better in performance and smarter
+# don't try to remove sendmail before installing postfix because it will remove : cronie cronie-noanacron crontabs / and you really don't want to live in a world without cron
+
+yum install postfix
+yum remove sendmail
+
+chkconfig --levels 235 postfix on
+service postfix start
