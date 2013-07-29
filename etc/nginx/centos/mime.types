@@ -1,4 +1,3 @@
-
 types {
     text/html                             html htm shtml;
     text/css                              css;
@@ -52,6 +51,8 @@ types {
     application/x-xpinstall               xpi;
     application/xhtml+xml                 xhtml;
     application/zip                       zip;
+    application/x-gzip			  tar.gz tgz gz;
+    application/x-tar			  tar;
 
     application/octet-stream              bin exe dll;
     application/octet-stream              deb;
