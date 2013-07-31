@@ -41,7 +41,7 @@ yum remove httpd
 
 # add nginx repo
 
-cd /etc/yum.repos.d && wget -N https://raw.github.com/cybernet/linux/master/repos/nginx.repo
+cd /etc/yum.repos.d && wget -N https://raw.github.com/cybernet/linux/centos/repos/nginx.repo
 
 yum install nginx -y
 
@@ -75,8 +75,8 @@ yum --enablerepo=remi install php-cli php-pear php-pdo php-mysql php-pgsql php-f
 
 mkdir /etc/nginx/{sites-available,sites-enabled}
 
-cd /etc/nginx && wget -N https://raw.github.com/cybernet/linux/master/etc/nginx/centos/nginx.conf
-cd /etc/nginx && wget -N https://raw.github.com/cybernet/linux/master/etc/nginx/centos/mime.types
+cd /etc/nginx && wget -N https://raw.github.com/cybernet/linux/centos/etc/nginx/centos/nginx.conf
+cd /etc/nginx && wget -N https://raw.github.com/cybernet/linux/centos/etc/nginx/centos/mime.types
 
 
 mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
