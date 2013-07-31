@@ -63,7 +63,7 @@ ifconfig eth0 | grep inet | awk '{ print $2 }'
 # because RHEL/CentOS will provide security patches much faster then any other repo + 5.3 is much more stable than 5.4 / it's just my opinion
 # however i will provide both ways
 
-# MyWAY - php 5.3 from RHEL/CentOS
+# MyWAY - php 5.3 from { RHEL/CentOS } 6
 
 yum install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml
 
