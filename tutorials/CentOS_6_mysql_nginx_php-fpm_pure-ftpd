@@ -80,7 +80,6 @@ cd /etc/nginx && wget -N https://raw.github.com/cybernet/linux/centos/etc/nginx/
 
 
 mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
-ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
 # Don't eXpose php in header
 
@@ -101,6 +100,7 @@ cd /etc/nginx/sites-enabled/
 for d in ../sites-available/*; do ln -s /etc/nginx/sites-available/${d##*/}; done
 nginx -t
 
+for s in nginx php-fpm mysqld; do service $s restart; done
 
 # replacing sendmail with postfix
 # postfix is better in performance and smarter
