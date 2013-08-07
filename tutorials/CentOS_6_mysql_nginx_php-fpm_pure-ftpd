@@ -1,4 +1,4 @@
-# CentOS 6.x x64 tutorial
+# CentOS 6.x x64 tutorial / Works on openVZ containers also
 
 
 # We start with 
@@ -17,7 +17,7 @@ rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.r
 
 rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-# Change TimeZone to London
+# Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
@@ -25,7 +25,7 @@ ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 yum install mysql-server
 
-# start MySQL 
+# start MySQL
 
 service mysqld start
 
@@ -88,13 +88,27 @@ sed -i -e 's/expose_php = On/expose_php = Off/g' /etc/php.ini
 # Configure php-fpm for { www } pool
 # Up to now, we have used TCP connections for our PHP-FPM pool (127.0.0.1:9000, 127.0.0.1:9001, etc.). This causes some overhead. Fortunately we can use Unix sockets instead of TCP connections for our pools and get rid of this overhead. Therefore, Unix sockets are more performant than TCP connections.
 
-# I want sockets to be created in the /var/run/php-fpm directory, therefore we have to create that directory first :
+# We want sockets to be created in the /var/run/php-fpm directory, therefore we have to create that directory first :
 
 mkdir -p /var/run/php-fpm
 
 # Better with sockets
 
 sed -i -e 's/127.0.0.1:9000/\/var\/run\/php-fpm\/www.socket/g' -e 's/pm.start_servers = 5/pm.start_servers = 1/g' -e 's/pm.min_spare_servers = 5/pm.min_spare_servers = 1/g' -e 's/pm.max_children = 50/pm.max_children = 10/g' -e 's/pm.max_spare_servers = 35/pm.max_spare_servers = 5/g' -e 's/user = apache/user = nginx/g' -e 's/group = apache/group = nginx/g' -e 's/;listen.owner = nobody/;listen.owner = nginx/g' -e 's/;listen.group = nobody/;listen.group = nginx/g' -e 's/;chdir = \/var\/www/chdir = \/var\/www/g' /etc/php-fpm.d/www.conf
+
+sed -i -e 's/post_max_size = 8M/post_max_size = 50M/g' -e 's/upload_max_filesize = 2M/upload_max_filesize = 50M/g' /etc/php.ini
+
+# Disable MySQL persistent connections / they are slowing the server
+
+sed -i -e 's/mysql.allow_persistent = On/mysql.allow_persistent = Off/g' /etc/php.ini
+
+# Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
+
+sed -i -e 's/;date.timezone =/date.timezone = "Europe\/London"/g' /etc/php.ini
+
+
+# Disable sending mail header / http://www.php.net/manual/en/mail.configuration.php#ini.mail.add-x-header
+sed -i -e 's/mail.add_x_header = On/mail.add_x_header = Off/g' /etc/php.ini
 
 cd /etc/nginx/sites-enabled/
 for d in ../sites-available/*; do ln -s /etc/nginx/sites-available/${d##*/}; done
@@ -117,3 +131,5 @@ service postfix start
 
 # enable on boot required services
 for s in nginx php-fpm mysqld; do chkconfig $s --levels 235 on; done
+
+# Pure FTP is next ... behold :))
