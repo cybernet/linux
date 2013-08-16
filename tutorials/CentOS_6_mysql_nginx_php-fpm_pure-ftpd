@@ -1,7 +1,7 @@
 # CentOS 6.x x64 tutorial / Works on openVZ containers also
 
 
-# We start with 
+# We start with
 
 $ yum update
 
