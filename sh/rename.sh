@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # rename all files matching .jpg to prefix_*1-99*.jpg
 cd /home/user/working_dir
 cnt=0
