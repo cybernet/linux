@@ -1,16 +1,23 @@
 server {
          listen 80;
-         server_name  batz.uk.to;
-   	 root /home/uk/html/batz;
-#	 access_log /home/uk/logs/batz/access.log;
-	 error_log /home/uk/logs/batz/error.log;
+         server_name  _;
+   	 root /home/batz/www;
+#	 access_log /home/batz/logs/www/access.log;
+	 error_log /home/batz/logs/www/error.log;
 
 	charset utf-8;
-	client_max_body_size 50M;
+	client_max_body_size 256M;
 
         location / {
             index  index.php;
         }
+
+	location = /batz {
+		include /etc/nginx/fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME /batz;
+		fastcgi_pass unix:/var/run/php-fpm/batz.socket;
+		access_log off;
+			}
 
         #error_page  404              /404.html;
 
