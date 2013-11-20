@@ -1,0 +1,47 @@
+server {
+         listen 80;
+         server_name  batz.uk.to;
+   	 root /home/uk/html/batz;
+#	 access_log /home/uk/logs/batz/access.log;
+	 error_log /home/uk/logs/batz/error.log;
+
+	charset utf-8;
+	client_max_body_size 50M;
+
+        location / {
+            index  index.php;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # pass the PHP scripts to FastCGI server listening unix socket
+        #
+        location ~ \.php$ {
+  	 try_files $uri = 404;
+	  include /etc/nginx/fastcgi_params;
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass   unix:/var/run/php-fpm/batz.socket;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+	    fastcgi_buffer_size 128k;
+            fastcgi_buffers 256 4k;
+            fastcgi_busy_buffers_size 256k;
+            fastcgi_temp_file_write_size 256k;
+	# gen
+	    fastcgi_hide_header on;
+        }
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        location ~ /\.ht {
+            deny  all;
+        }
+    }
