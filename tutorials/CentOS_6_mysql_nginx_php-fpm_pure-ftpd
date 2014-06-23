@@ -4,7 +4,6 @@
 
 $ yum update
 
-
 # Then install the required repo's for this tutorial to work
 
 # epEL repo`
@@ -20,9 +19,9 @@ rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
-# MySQL server
+# MySQL server && wGET
 
-yum install mysql-server
+yum install mysql-server wget -y
 
 # start MySQL
 
