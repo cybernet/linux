@@ -157,4 +157,4 @@ cd /etc/pure-ftpd && wget -N https://raw.githubusercontent.com/cybernet/linux/ce
 pure-pw useradd batz -u batz -d /home/batz -t 4096 -T 4096 -Q 4096 -y 5 -N 1024 -m
 
 # enable on boot required services
-for s in nginx php-fpm mysqld; do chkconfig $s --levels 235 on; done
+for s in nginx php-fpm pure-ftpd postfix mysqld; do chkconfig $s --levels 235 on; done
