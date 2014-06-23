@@ -115,10 +115,24 @@ nginx -t
 
 for s in nginx php-fpm mysqld; do service $s restart; done
 
+# batz start
+
+cd /etc && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/php-fpm.conf
+
+cd /etc/php-fpm.d && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/php-fpm.d/batz.conf
+
+# aDD` default files for users
+
+mkdir -p /etc/skel/{session,www,logs/www} && touch /etc/skel/{www-error,www-slow,logs/www/error,logs/www/access}.log
+
+adduser batz && passwd -l batz
+
+# batz end
+
 # replacing sendmail with postfix
 # postfix is better in performance and smarter
 # don't try to remove sendmail before installing postfix because it will remove : cronie cronie-noana cron crontabs / and you really don't want to live in a world without cronD
-# for the moment i will use postfix with default configuration
+# at the moment i will use postfix with default configuration
 
 yum install postfix
 yum remove sendmail
@@ -127,8 +141,20 @@ yum remove sendmail
 
 service postfix start
 
+# Pure FTPd
+
+# iNstalling RPMForge repo to get the latest version of Pure FTPd
+
+rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && yum install pure-ftpd -y
+
+# firewall entry
+
+iptables -I INPUT -m tcp -p tcp --dport 20:21 -j ACCEPT
+
+# Pure FTPd conf's
+cd /etc/pure-ftpd && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/pure-ftpd/pure-ftpd.conf && touch pureftpd.pdb
+
+pure-pw useradd batz -u batz -d /home/batz -t 4096 -T 4096 -Q 4096 -y 5 -N 1024 -m
 
 # enable on boot required services
 for s in nginx php-fpm mysqld; do chkconfig $s --levels 235 on; done
-
-# Pure FTP is next ... behold :))
