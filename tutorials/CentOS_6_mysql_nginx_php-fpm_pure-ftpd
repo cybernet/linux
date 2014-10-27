@@ -8,8 +8,7 @@ $ yum update
 
 # epEL repo`
 
-rpm --import https://fedoraproject.org/static/0608B895.txt
-rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+yum install epel* -y
 
 # REMi repo`
 
@@ -63,11 +62,11 @@ ifconfig eth0 | grep inet | awk '{ print $2 }'
 
 # MyWAY - php 5.3 from { RHEL/CentOS } 6
 
-yum install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml
+yum install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
 
 # REMi Way
 
-yum --enablerepo=remi install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml
+yum --enablerepo=remi install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
 
 #
 
@@ -133,8 +132,8 @@ adduser batz && passwd -l batz
 # don't try to remove sendmail before installing postfix because it will remove : cronie cronie-noana cron crontabs / and you really don't want to live in a world without cronD
 # at the moment i will use postfix with default configuration
 
-yum install postfix
-yum remove sendmail
+yum install postfix -y
+yum remove sendmail -y
 
 # start postfix server
 
