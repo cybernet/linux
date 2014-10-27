@@ -35,11 +35,11 @@ mysql_secure_installation
 
 service httpd stop
 chkconfig httpd off
-yum remove httpd
+yum remove httpd -y
 
 # add nginx repo & yum priority plugin
 
-yum install yum-plugin-priorities && cd /etc/yum.repos.d && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/nginx.repo
+yum install yum-plugin-priorities -y && cd /etc/yum.repos.d && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/nginx.repo
 
 yum install nginx -y
 
