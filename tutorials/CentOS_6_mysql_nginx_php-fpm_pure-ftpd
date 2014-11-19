@@ -160,7 +160,11 @@ mkdir -p /etc/ssl/private/ && openssl req -x509 -nodes -days 7300 -newkey rsa:20
 
 chmod 600 /etc/ssl/private/pure-ftpd.pem
 
+# Pure FTPd TLS start
+
 service pure-ftpd start
+
+# Pure FTPd TLS example user
 
 pure-pw useradd batz -u batz -d /home/batz -t 4096 -T 4096 -Q 4096 -y 5 -N 1024 -m
 
