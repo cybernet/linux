@@ -18,9 +18,9 @@ rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
-# MySQL server && wGET
+# MySQL server, wGET && hTOP
 
-yum install mysql-server wget -y
+yum install mysql-server wget htop -y
 
 # start MySQL
 
