@@ -22,6 +22,10 @@ ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 yum install mysql-server wget htop -y
 
+# GET MySQL config
+
+cd /etc && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/my.cnf
+
 # start MySQL
 
 service mysqld start
