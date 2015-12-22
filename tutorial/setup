@@ -1,0 +1,5 @@
+$ apt-get update && apt-get upgrade
+
+$ sudo apt-get install php5-fpm php5-mysql mysql-server nginx -y
+
+$ mkdir -p /run/cBE-FPM && mkdir -p /var/www
