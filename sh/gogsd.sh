@@ -1,7 +1,7 @@
 #!/bin/sh
 
 APP_NAME="gogs"
-MYSQL_PASSWORD=NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+MYSQL_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 HOSTNAME="gogsd.uk.to"
 
 # setup mysql
@@ -31,4 +31,4 @@ EOF
 
 service nginx start
 chkconfig nginx on
-echo"MySQL root password is ${MYSQL_PASSWORD}"
+echo "MySQL root password is ${MYSQL_PASSWORD}"
