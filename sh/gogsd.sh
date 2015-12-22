@@ -29,6 +29,6 @@ server {
 }
 EOF
 
-service nginx start
+service nginx restart
 chkconfig nginx on
 echo "MySQL root password is ${MYSQL_PASSWORD}"
