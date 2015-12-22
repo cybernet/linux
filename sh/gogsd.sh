@@ -2,7 +2,7 @@
 
 APP_NAME="gogs"
 MYSQL_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-HOSTNAME="gogsd.uk.to"
+HOSTNAME="gitd.uk.to"
 
 # setup mysql
 yum install mysql-server -y
