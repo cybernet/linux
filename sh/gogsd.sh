@@ -32,3 +32,4 @@ EOF
 service nginx restart
 chkconfig nginx on
 echo "MySQL root password is ${MYSQL_PASSWORD}"
+echo "Please proceed to ${HOSTNAME}/install to continue the installation"
