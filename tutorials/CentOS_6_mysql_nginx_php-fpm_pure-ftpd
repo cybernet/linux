@@ -78,6 +78,7 @@ mkdir -p /etc/nginx/{sites-available,sites-enabled}
 
 cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/nginx.conf
 cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/mime.types
+cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/caches.conf
 
 
 mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
