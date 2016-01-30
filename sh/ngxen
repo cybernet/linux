@@ -1,5 +1,11 @@
 #!/bin/bash
 
-echo "enabling $1 site"
+file="/etc/nginx/sites-available/$1"
 
-ln -s /etc/nginx/sites-abailable/$1 /etc/nginx/sites-enabled/$1
+if [ -f "$file" ]
+then
+	echo "enabling $1 site"
+	ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/$1
+else
+	echo "$file not found. are you sure that $1 is what you want to enable ?"
+fi
