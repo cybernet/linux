@@ -2,7 +2,7 @@
 
 en="/etc/nginx/sites-enabled/$1"
 
-if [ -f "$en" ]
+if [ -e "$en" ]
 then
 	echo "$1 site is enabled"
 	rm /etc/nginx/sites-enabled/$1
