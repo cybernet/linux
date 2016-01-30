@@ -1,13 +1,12 @@
-# 1st crap
 #!/bin/bash
 
-file="/etc/nginx/sites-available/$1"
+en="/etc/nginx/sites-enabled/$1"
 
-if [ -f "$file" ]
+if [ -f "$en" ]
 then
-	echo "$1 site exists"
-	ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/$1
+	echo "$1 site is enabled"
+	rm /etc/nginx/sites-enabled/$1
 	echo "you have to manually restart nginx"
 else
-	echo "$file not found. are you sure that $1 is what you want to enable ?"
+	echo "$en not found. are you sure that $1 is what you want to disable ?"
 fi
