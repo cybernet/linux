@@ -1,0 +1,3 @@
+yum install epel*
+
+yum install php5-fpm
