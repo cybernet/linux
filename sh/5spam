@@ -1,0 +1,3 @@
+#!/bin/sh
+# show top 5 failed logins attempt
+awk 'gsub(".*sshd.*Failed password for (invalid user )?", "") {print $3}' /var/log/secure* | sort | uniq -c | sort -rn | head -5
