@@ -126,7 +126,7 @@ cd /etc/php-fpm.d && wget -N https://raw.githubusercontent.com/cybernet/linux/ce
 
 # aDD` default files for users
 
-mkdir -p /etc/skel/{session,www,logs/www} && touch /etc/skel/{www-error,www-slow,logs/www/error,logs/www/access}.log
+mkdir -p /etc/skel/{session,www,tmp,logs/www} && touch /etc/skel/{www-error,www-slow,logs/www/error,logs/www/access}.log
 
 adduser batz && passwd -l batz
 
