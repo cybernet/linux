@@ -44,6 +44,8 @@ yum remove httpd -y
 
 yum install yum-plugin-priorities -y && cd /etc/yum.repos.d && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/nginx.repo
 
+# add nginx key
+
 rpm --import http://nginx.org/keys/nginx_signing.key
 
 yum install nginx -y
