@@ -44,6 +44,8 @@ yum remove httpd -y
 
 yum install yum-plugin-priorities -y && cd /etc/yum.repos.d && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/nginx.repo
 
+rpm --import http://nginx.org/keys/nginx_signing.key
+
 yum install nginx -y
 
 # start the service
@@ -59,7 +61,7 @@ ifconfig venet0:0 | grep inet | awk '{ print $2 }'
 # server
 ifconfig eth0 | grep inet | awk '{ print $2 }'
 
-# Let's install php now
+# Let's install PHP now
 # while most of the tutorials will tell you to install php from remi, i choose not to
 # because RHEL/CentOS will provide security patches much faster then any other repo + 5.3 is much more stable than 5.4 / it's just my opinion
 # however i will provide both ways
