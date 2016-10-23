@@ -262,6 +262,9 @@
 #0	string		CP		color pointer
 #0	string		BA		bitmap array
 
+0	string		\x89PNG		image/png
+0	string		FWS		application/x-shockwave-flash
+0	string		CWS		application/x-shockwave-flash
 
 #------------------------------------------------------------------------------
 # lisp:  file(1) magic for lisp programs
@@ -379,8 +382,3 @@
 # from Apple quicktime file format documentation.
 4   string      moov        video/quicktime
 4   string      mdat        video/quicktime
-
-# PNG [Portable Network Graphics, or "PNG's Not GIF"] images
-#
-# 137 P N G \r \n ^Z \n [4-byte length] H E A D [HEAD data] [HEAD crc] ...
-0   string      \211PNG\015      image/png
