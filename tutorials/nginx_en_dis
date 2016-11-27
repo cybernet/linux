@@ -1,0 +1,4 @@
+# NginX disable site script
+cd /usr/bin && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/sh/ngxdis && chmod +x ngxdis
+# NginX enable site script
+cd /usr/bin && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/sh/ngxen && chmod +x ngxen
