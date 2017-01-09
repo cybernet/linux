@@ -1,0 +1,45 @@
+server {
+        listen       80;
+        server_name  tobefilled.io;
+        root /home/uk/www;
+#      access_log /home/uk/logs/access.log;
+        error_log /home/uk/logs/error.log;
+        client_max_body_size 256M;
+
+        charset utf-8;
+
+        location / {
+            index  index.php index.htm index.html;
+        }
+
+        # serve static files directly
+        location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt)$ {
+                access_log      off;
+                expires         1d;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on socket
+        #
+        location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+         try_files $uri = 404;
+          include /etc/nginx/fastcgi_params;
+            fastcgi_pass   unix:/var/run/php-fpm/uk.socket;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_buffer_size 128k;
+            fastcgi_buffers 256 4k;
+            fastcgi_busy_buffers_size 256k;
+            fastcgi_temp_file_write_size 256k;
+        # gen
+            fastcgi_hide_header on;
+        }
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        location ~ /\.ht {
+            deny  all;
+        }
+
+    }

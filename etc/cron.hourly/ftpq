@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pure-pw list | sed 'sX/./$XX' | while read s r; do pure-quotacheck -u "$s" -d "$r"; done > /dev/null 2>&1
