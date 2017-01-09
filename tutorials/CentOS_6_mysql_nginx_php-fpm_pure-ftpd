@@ -150,9 +150,9 @@ service postfix start
 
 # Pure FTPd
 
-# installing RPMForge repo to get the latest version of Pure FTPd
+# install latest version of Pure FTPd
 
-rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && yum install pure-ftpd -y
+yum install pure-ftpd -y
 
 # firewall entry
 
