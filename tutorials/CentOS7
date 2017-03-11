@@ -10,6 +10,12 @@ $ yum update
 
 yum install epel* -y
 
+# Swap
+
+cd /usr/bin && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/sh/swap.sh
+chmod +x swap.sh
+swap.sh
+
 # Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
