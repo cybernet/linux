@@ -56,3 +56,24 @@ swap.sh
 echo "Dont expose php headers"
 sed -i -e 's/expose_php = On/expose_php = Off/g' /etc/php.ini
 echo "done"
+
+# Configure php-fpm for { www } pool
+# Up to now, we have used TCP connections for our PHP-FPM pool (127.0.0.1:9000, 127.0.0.1:9001, etc.). This causes some overhead. Fortunately we can use Unix sockets instead of TCP connections for our pools and get rid of this overhead. Therefore, Unix sockets are more performant than TCP connections.
+
+# We want sockets to be created in the /var/run/php-fpm directory, therefore we have to create that directory first :
+
+mkdir -p /var/run/php-fpm
+
+# Better run with sockets
+
+sed -i -e 's/127.0.0.1:9000/\/var\/run\/php-fpm\/www.socket/g' -e 's/pm.start_servers = 5/pm.start_servers = 1/g' -e 's/pm.min_spare_servers = 5/pm.min_spare_servers = 1/g' -e 's/pm.max_children = 50/pm.max_children = 10/g' -e 's/pm.max_spare_servers = 35/pm.max_spare_servers = 5/g' -e 's/user = apache/user = nginx/g' -e 's/group = apache/group = nginx/g' -e 's/;listen.owner = nobody/;listen.owner = nginx/g' -e 's/;listen.group = nobody/;listen.group = nginx/g' -e 's/;chdir = \/var\/www/chdir = \/var\/www/g' /etc/php-fpm.d/www.conf
+
+sed -i -e 's/post_max_size = 8M/post_max_size = 50M/g' -e 's/upload_max_filesize = 2M/upload_max_filesize = 50M/g' /etc/php.ini
+
+# Disable MySQL persistent connections / they are slowing the server
+
+sed -i -e 's/mysql.allow_persistent = On/mysql.allow_persistent = Off/g' /etc/php.ini
+
+# Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
+
+sed -i -e 's/;date.timezone =/date.timezone = "Europe\/London"/g' /etc/php.ini
