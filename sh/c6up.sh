@@ -4,7 +4,7 @@ yum update -y
 yum install epel* -y
 
 # Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
-echo " changing timezone to London, it's easier
+echo " changing timezone to London, its easier"
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 # MySQL server, wGET && hTOP
 echo "installing mysql server, wget, hTOP"
@@ -46,5 +46,5 @@ wget -P /etc/nginx -N https://raw.githubusercontent.com/cybernet/linux/centos/et
 mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
 
 # Don't expose php headers
-echo "Don't expose php headers"
+echo "Dont expose php headers"
 sed -i -e 's/expose_php = On/expose_php = Off/g' /etc/php.ini
