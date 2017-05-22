@@ -33,7 +33,10 @@ yum install nginx -y
 service nginx start
 
 # REMi Way
-echo " get remi repo and install php 5.6"
+
+echo " get remi repo and keys and install php 5.6"
+rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi
+rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi2017
 wget -P /etc/yum.repos.d -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/remi.repo
 yum --enablerepo=remi-php56 install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
 
