@@ -35,7 +35,7 @@ service nginx start
 # REMi Way
 echo " get remi repo and install php 5.6"
 wget -P /etc/yum.repos.d -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/remi.repo
-yum --enablerepo=remi install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
+yum --enablerepo=remi-php56 install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
 
 mkdir -p /etc/nginx/{sites-available,sites-enabled}
 
