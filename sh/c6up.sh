@@ -1,7 +1,9 @@
 #!/bin/sh
 
 yum update -y
-yum install epel* -y
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+wget https://rpms.remirepo.net/enterprise/remi-release-6.rpm
+rpm -Uvh remi-release-6.rpm epel-release-latest-6.noarch.rpm
 
 # Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
 echo " changing timezone to London, its easier"
@@ -34,11 +36,8 @@ service nginx start
 
 # REMi Way
 
-echo " get remi repo and keys and install php 5.6"
-rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi
-rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi2017
-wget -P /etc/yum.repos.d -N https://raw.githubusercontent.com/cybernet/linux/centos/repos/remi.repo
-yum --enablerepo=remi-php56 install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
+echo " install php 5.6"
+yum --enablerepo=remi-php56 install php-cli php-pear php-intl php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
 
 mkdir -p /etc/nginx/{sites-available,sites-enabled}
 
