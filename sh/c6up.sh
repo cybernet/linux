@@ -55,3 +55,4 @@ wget -P /usr/bin -N https://raw.githubusercontent.com/cybernet/linux/centos/sh/s
 # Don't expose php headers
 echo "Dont expose php headers"
 sed -i -e 's/expose_php = On/expose_php = Off/g' /etc/php.ini
+echo "done"
