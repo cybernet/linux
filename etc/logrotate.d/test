@@ -1,0 +1,8 @@
+/var/log/test.log {
+    missingok
+    notifempty
+    compress
+    size 20k
+    daily
+    create 0600 root root
+}
