@@ -50,7 +50,8 @@ mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
 # get swap.sh
 echo "get swap utility"
 wget -P /usr/bin -N https://raw.githubusercontent.com/cybernet/linux/centos/sh/swap.sh && chmod +x /usr/bin/swap.sh
-
+echo "checking swap..."
+swap.sh
 # Don't expose php headers
 echo "Dont expose php headers"
 sed -i -e 's/expose_php = On/expose_php = Off/g' /etc/php.ini
