@@ -2,7 +2,7 @@ server {
         listen       80;
         server_name  tobefilled.io;
         root /home/uk/www;
-#      access_log /home/uk/logs/access.log;
+#       access_log /home/uk/logs/access.log;
         error_log /home/uk/logs/error.log;
         client_max_body_size 256M;
 
