@@ -1,0 +1,9 @@
+# vultr private network
+DEVICE=eth1
+ONBOOT=yes
+NM_CONTROLLED=no
+BOOTPROTO=static
+IPADDR=10.99.0.12
+NETMASK=255.255.0.0
+IPV6INIT=no
+MTU=1450
