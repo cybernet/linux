@@ -1,4 +1,4 @@
-# CentOS 6.x x64 tutorial / Works on openVZ containers also
+# CentOS 7.x x64 tutorial / Works on openVZ containers also
 
 # We start with
 
@@ -66,7 +66,7 @@ ifconfig eth0 | grep inet | awk '{ print $2 }'
 # because RHEL/CentOS will provide security patches much faster then any other repo + 5.3 is much more stable than 5.4 / it's just my opinion
 # however i will provide both ways
 
-# MyWAY - php 5.3 from { RHEL/CentOS } 6
+# MyWAY - php 5.3 from { RHEL/CentOS } 7
 
 yum install php-cli php-pear php-pdo php-mysql php-pgsql php-fpm php-gd php-mbstring php-mcrypt php-xml -y
 
@@ -129,9 +129,9 @@ cd /etc/php-fpm.d && wget -N https://raw.githubusercontent.com/cybernet/linux/ce
 
 # aDD` default files for users
 
-mkdir -p /etc/skel/{session,www,tmp,logs/www} && touch /etc/skel/{www-error,www-slow,logs/www/error,logs/www/access}.log
+mkdir -p /etc/skel/{session,www,wsdlcache,tmp,logs/www} && touch /etc/skel/{www-error,www-slow,logs/www/error,logs/www/access}.log
 
-adduser batz && passwd -l batz
+adduser dev && passwd -l dev
 
 # batz end
 
@@ -155,7 +155,11 @@ yum install pure-ftpd -y
 
 # firewall entry
 
-iptables -I INPUT -m tcp -p tcp --dport 20:21 -j ACCEPT
+sudo firewall-cmd --permanent --add-service=ftp
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-port=30000-30010/tcp
+sudo firewall-cmd --reload
 
 # Pure FTPd conf's
 cd /etc/pure-ftpd && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/pure-ftpd/pure-ftpd.conf && touch pureftpd.pdb
@@ -174,7 +178,7 @@ service pure-ftpd start
 
 # Pure FTPd TLS example user
 
-pure-pw useradd batz -u batz -d /home/batz -t 4096 -T 4096 -Q 4096 -y 5 -N 1024 -m
+pure-pw useradd dev -u dev -d /home/dev -t 4096 -T 4096 -Q 4096 -y 5 -N 1024 -m
 
 # enable on boot required services
-for s in nginx php-fpm pure-ftpd postfix mysqld; do chkconfig $s --levels 235 on; done
+for s in nginx php-fpm pure-ftpd postfix mysqld; do service enable $s --levels; done
