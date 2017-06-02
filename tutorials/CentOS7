@@ -119,7 +119,7 @@ cd /etc/nginx/sites-enabled/
 for d in ../sites-available/*; do ln -s /etc/nginx/sites-available/${d##*/}; done
 nginx -t
 
-for s in nginx php-fpm mysqld; do service $s restart; done
+for s in nginx php-fpm mariadb; do service $s restart; done
 
 # batz start
 
@@ -181,4 +181,4 @@ service pure-ftpd start
 pure-pw useradd dev -u dev -d /home/dev -t 4096 -T 4096 -Q 4096 -y 5 -N 1024 -m
 
 # enable on boot required services
-for s in nginx php-fpm pure-ftpd postfix mysqld; do service enable $s --levels; done
+for s in nginx php-fpm pure-ftpd postfix mariadb; do service enable $s --levels; done
