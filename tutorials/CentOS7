@@ -158,7 +158,7 @@ sudo firewall-cmd --permanent --add-port=30000-30010/tcp
 sudo firewall-cmd --reload
 
 # Pure FTPd conf's
-cd /etc/pure-ftpd && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/pure-ftpd/pure-ftpd.conf && touch pureftpd.pdb
+cd /etc/pure-ftpd && wget -N https://raw.githubusercontent.com/cybernet/linux/centos7/etc/pure-ftpd/pure-ftpd.conf && touch pureftpd.pdb
 
 # Pure FTPd TLS conf
 
