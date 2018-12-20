@@ -1,0 +1,52 @@
+# To enable log monitoring for Nginx login attempts.
+[nginx-auth]
+enabled = true
+filter = nginx-auth
+action = iptables-multiport[name=NoAuthFailures, port="http,https"]
+logpath = /var/log/nginx*/*error*.log
+bantime = 600
+maxretry = 6
+#[nginx-login]
+#enabled = true
+#filter = nginx-login
+#action = iptables-multiport[name=NoLoginFailures, port="http,https"]
+#logpath = /var/log/nginx*/*access*.log
+#bantime = 600 # 10 minutes
+#maxretry = 6
+# This is the only Nginx-specific jail included with CentOS 7 fail2ban package. However, you can create our own jails to add additional functionality.
+# You can create an [nginx-noscript] jail to ban clients that are searching for scripts on the website to execute and exploit. If you do not use PHP #or any other language in conjunction with your web server, you can add this jail to ban those who request these types of resources:
+# to ban clients that are searching for scripts on the website to execute and exploit.
+[nginx-noscript]
+enabled = true
+action = iptables-multiport[name=NoScript, port="http,https"]
+filter = nginx-noscript
+logpath = /var/log/nginx*/*access*.log
+maxretry = 6
+bantime = 86400
+# 1 day #
+# You can add a section called [nginx-badbots] to stop some known malicious bot request patterns:
+# to stop some known malicious bot request patterns
+[nginx-badbots]
+enabled  = true
+filter = apache-badbots
+action = iptables-multiport[name=BadBots, port="http,https"]
+logpath = /var/log/nginx*/*access*.log
+bantime = 86400
+maxretry = 1
+# If you do not use Nginx to provide access to web content within users' home directories, you can ban users who request these resources by adding an #[nginx-nohome] jail:
+# to provide access to web content within users' home directories
+[nginx-nohome]
+enabled  = true
+port = http,https
+filter   = nginx-nohome
+logpath  = /var/log/nginx*/*access*.log
+maxretry = 2
+# We should ban clients attempting to use our Nginx server as an open proxy. We can add an [nginx-noproxy] jail to match these requests:
+# ban clients attempting to use our Nginx server as an open proxy
+[nginx-proxy]
+enabled = true
+action = iptables-multiport[name=NoProxy, port="http,https"]
+filter = nginx-proxy
+logpath = /var/log/nginx*/*access*.log
+maxretry = 1
+bantime  = 86400
