@@ -1,11 +1,11 @@
 #!/bin/bash
 
-en="/etc/nginx/sites-enabled/$1"
+en="/etc/nginx/en/$1"
 
 if [ -e "$en" ]
 then
 	echo "$1 site is enabled"
-	rm /etc/nginx/sites-enabled/$1
+	rm /etc/nginx/en/$1
 	echo "you have to manually restart nginx"
 else
 	echo "$en not found. are you sure that $1 is what you want to disable ?"
