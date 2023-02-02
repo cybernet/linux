@@ -21,3 +21,11 @@ fi
 # output results to terminal
 cat /proc/swaps
 cat /proc/meminfo | grep Swap
+
+# swappiness
+
+echo "set swappines to 11 at runtime"
+sleep 1
+sysctl -w vm.swappiness=11
+echo "set to permanent ine sysctl.conf"
+echo 'vm.swappiness=11' >> /etc/sysctl.d/99-swappiness.conf
